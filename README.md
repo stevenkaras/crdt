@@ -18,7 +18,9 @@ In fact, the names of the data types in this project I've taken from his survey 
 
 Add this line to your application's Gemfile:
 
+```ruby
     gem 'crdt'
+```
 
 And then execute:
 
@@ -34,7 +36,7 @@ TODO
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/crdt/fork )
+1. Fork it ( https://github.com/stevenkaras/crdt/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -44,4 +46,4 @@ TODO
 
 Based on research by Marc Shapiro, et al.
 
-Inspired by aphyr/meangirls, but not based on (he does some funky class inheritence/loading tricks I don't like).
+Inspired by [aphyr/meangirls](http://github.com/aphyr/meangirls), but not based on (he does some funky class inheritence/loading tricks I don't like).
