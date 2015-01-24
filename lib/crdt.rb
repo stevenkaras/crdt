@@ -8,6 +8,7 @@ end
 %w{
   pn_counter
   vector_clock
+  or_set
 }.each do |lib|
   require File.expand_path("crdt/#{lib}", __DIR__)
 end
