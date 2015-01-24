@@ -19,7 +19,7 @@ In fact, the names of the data types in this project I've taken from his survey 
 Add this line to your application's Gemfile:
 
 ```ruby
-    gem 'crdt'
+gem 'crdt'
 ```
 
 And then execute:
@@ -32,7 +32,17 @@ Or install it yourself as:
 
 ## Usage
 
-TODO
+You can require all the CRDTs, or individual ones:
+
+```ruby
+require 'crdt'
+```
+
+Or
+
+```ruby
+require 'crdt/or_set'
+```
 
 ## Contributing
 
@@ -46,4 +56,4 @@ TODO
 
 Based on research by Marc Shapiro, et al.
 
-Inspired by [aphyr/meangirls](http://github.com/aphyr/meangirls), but not based on (he does some funky class inheritence/loading tricks I don't like).
+Inspired by [aphyr/meangirls](https://github.com/aphyr/meangirls), but not based on (he does some funky class inheritence/loading tricks I don't like).
