@@ -1,0 +1,3 @@
+module CRDT
+  VERSION = "0.1.0"
+end
