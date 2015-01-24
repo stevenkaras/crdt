@@ -6,6 +6,7 @@ module CRDT
 end
 
 %w{
+  pn_counter
   vector_clock
 }.each do |lib|
   require File.expand_path("crdt/#{lib}", __DIR__)
