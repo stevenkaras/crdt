@@ -2,9 +2,9 @@ module CRDT
   # Observe Remove Graph (variant of 2P2P Graph)
   #
   # This is a general purpose graph data type. It works by keeping a 2P set for vertices and an OR set for edges
-  # This also means that it is left to the user to choose which operations take precedence (removes over adds, etc)
   #
   # Vertices are created uniquely on a node, and are represented with a token. It is left to the user to tie this token to their internal data.
+  # When merging changes, removes take precedence over adds, which can cause some surprising behavior when removing vertices
   class ORGraph
     # Create a new graph
     def initialize(node_identity = Thread.current.object_id, token_counter = 0)
@@ -104,7 +104,7 @@ module CRDT
       hash["edges"].each do |token, edge|
         graph.edges[token] = {
           observed: edge[:observed].dup,
-          reomved: edge[:removed].dup,
+          removed: edge[:removed].dup,
         }
       end
 
@@ -119,6 +119,7 @@ module CRDT
           outgoing_edges: [],
           removed: false,
         }
+
         # cleaning out removed edges is taken care of while merging edges
         @vertices[token][:incoming_edges] |= vertex[:incoming_edges]
         @vertices[token][:outgoing_edges] |= vertex[:outgoing_edges]
@@ -130,9 +131,17 @@ module CRDT
           observed: [],
           removed: [],
         }
+
         @edges[edge_token][:observed] |= edge[:observed]
         @edges[edge_token][:removed] |= edge[:removed]
         @edges[edge_token][:observed] -= @edges[edge_token][:removed]
+
+        # vertex removal takes precedence over edge creation
+        if @vertices[from][:removed] || @vertices[to][:removed]
+          @edges[edge_token][:removed] += @edges[edge_token][:observed]
+          @edges[edge_token][:observed] = []
+        end
+
         if @edges[edge_token][:observed].empty?
           @vertices[to][:incoming_edges].delete(from)
           @vertices[from][:outgoing_edges].delete(to)
