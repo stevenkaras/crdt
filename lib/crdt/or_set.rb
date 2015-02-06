@@ -72,8 +72,8 @@ module CRDT
     def merge(other)
       other.items.each do |item, record|
         @items[item] ||= {observed: [], removed: []}
-        @items[item][:observed] += record[:observed]
-        @items[item][:removed] += record[:removed]
+        @items[item][:observed] |= record[:observed]
+        @items[item][:removed] |= record[:removed]
         @items[item][:observed] -= @items[item][:removed]
       end
     end
