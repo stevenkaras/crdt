@@ -11,5 +11,5 @@ end
   or_set
   lww_register
 }.each do |lib|
-  require File.expand_path("crdt/#{lib}", __DIR__)
+  require File.expand_path("crdt/#{lib}", __dir__)
 end
