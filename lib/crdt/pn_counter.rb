@@ -89,23 +89,25 @@ module CRDT
     # Add something to this counter
     #
     # @param other [Number] the amount to add to this counter
-    def +=(other)
+    def +(other)
       if other > 0
         increase(other)
       else
         decrease(- other)
       end
+      self
     end
 
     # Subtract something from this counter
     #
     # @param other [Number] the amount to subtract from this counter
-    def -=(other)
+    def -(other)
       if other > 0
         decrease(other)
       else
         increase(- other)
       end
+      self
     end
 
     def value
