@@ -28,6 +28,18 @@ module CRDT
       return ! tokens[:observed].empty?
     end
 
+    def each
+      if block_given?
+        @items.each do |item, record|
+          next if record[:observed].empty?
+          yield item
+        end
+      else
+        return to_enum
+      end
+    end
+    include Enumerable
+
     # Add an item to this set
     def add(item)
       # the token in this implementation is "better", since it's easier for us to parse/garbage collect
